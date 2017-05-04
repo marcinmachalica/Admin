@@ -1,0 +1,29 @@
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/Scripts/jqueryScript.js")
+@model Admin.ViewModels.ProcessViewModel
+@{
+    var grid = new WebGrid(source: Model.Processes, canSort: true ,canPage: true, rowsPerPage: 30);
+}
+
+<div id="dataView">
+    <div>
+        <h2>Processes</h2>
+        <div id="grid">
+            @grid.GetHtml(
+         tableStyle: "table table-hover",
+         columns: grid.Columns(
+         grid.Column("ProcesName", "Process Name"),
+         grid.Column("ProcesId", "Proces ID"),
+         grid.Column(header: "Operacje", format:
+        @<text>
+            @Html.ActionLink("Stop Proces", "KillProces", new { Id = Model.Id, procesID = item.procesId })
+
+        </text>
+         )
+         ))
+        </div>
+
+    </div>
+</div>
+

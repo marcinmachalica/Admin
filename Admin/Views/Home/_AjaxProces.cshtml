@@ -1,0 +1,30 @@
+﻿@model Admin.ViewModels.ProcessViewModel
+@{
+    var grid = new WebGrid(source: Model.Processes,canSort:true canPage: true,rowsPerPage:30);
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h2>Processes</h2>
+        <div id="grid">
+            @grid.GetHtml(
+tableStyle: "table table-hover",
+columns: grid.Columns(
+  grid.Column("ProcesName", "Process Name"),
+         grid.Column("ProcesId", "Proces ID"),
+         grid.Column(header: "Operacje", format:
+        @<text>
+            @Html.ActionLink("Stop Proces", "KillProces", new { Id = Model.Id, procesID = item.procesId })
+
+        </text>
+         )
+         ))
+        </div>
+
+    </div>
+</body>
+</html>

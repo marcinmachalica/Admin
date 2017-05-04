@@ -1,0 +1,46 @@
+﻿@model Admin.ViewModels.ProgramsViewModel
+<!DOCTYPE html>
+@{
+    var gridPrograms = new WebGrid(source: Model.Programs, canSort: true, canPage: true);
+    var gridHotfixes = new WebGrid(source: Model.Hotfixes, canSort: true, canPage: true);
+}
+<html>
+<head>
+    <meta name="viewport" content="width=device-width" />
+    <title></title>
+</head>
+<body>
+    <div>
+        <h2>Programs</h2>
+        <div id="gridPrograms">
+            @gridPrograms.GetHtml(
+      tableStyle: "table table-hover",
+     columns: gridPrograms.Columns(
+         gridPrograms.Column("Name", canSort: true),
+         gridPrograms.Column("Version", "Version"),
+         gridPrograms.Column("Vendor", "Vendor"),
+         gridPrograms.Column("Description", "Description"),
+         gridPrograms.Column("Caption", "Caption"),
+         gridPrograms.Column(header: "Operacje", format:
+        @<text>
+            @Html.ActionLink("Uninstall", "Uninstall", new { Id = Model.Id, identifyingNumber = item.identifyingNumber })
+
+        </text>
+         )))
+        </div>
+        <br />
+        <br />
+        <br />
+        <h2>Updates</h2>
+        <div id="gridHotfixes">
+            @gridHotfixes.GetHtml(
+      tableStyle: "table table-hover",
+     columns: gridHotfixes.Columns(
+         gridHotfixes.Column("Description", canSort: true),
+         gridHotfixes.Column("HotFixID", "HotFixID"),
+         gridHotfixes.Column("InstalledOn", "Installed On")
+         ))
+        </div>
+    </div>
+</body>
+</html>

@@ -1,0 +1,37 @@
+﻿@Scripts.Render("~/bundles/jquery")
+@Scripts.Render("~/bundles/bootstrap")
+@Scripts.Render("~/Scripts/jqueryScript.js")
+
+<div id="dataView">
+    @{
+        Html.RenderPartial("_AjaxDetails");
+    }
+</div>
+<script type="text/javascript">
+    $(document).ready(function () {
+
+        var timer = setInterval(ajax, 10000);
+
+        function ajax() {
+
+            $.ajax({
+                url: "@Url.Action("AjaxDetails","Home")",
+                data: {
+                    Id: "@Model.Id"
+                },
+                async:true,
+                type: 'POST',
+                dataType: 'html',
+                cache: false,
+                //success: function (html) {
+                //    // alert($(".LoadMonitor").html());
+                    
+                //}
+               
+            }).done(function (partialViewResult) { $("#dataView").html(partialViewResult) });
+        }
+
+        //$(".LoadMonitor").click().removeClass("LoadMonitor").addClass("alarm");
+       // $(".itemContener > table").addClass("table").addClass("table-hover");
+    });
+</script>

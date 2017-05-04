@@ -1,0 +1,39 @@
+﻿@{
+    var grid = new WebGrid(source: Model, canSort: true, canPage: true);
+
+}
+<html>
+<head>
+    <title>Displaying Data Using the WebGrid Helper</title>
+</head>
+<body>
+
+    <h1>Computers</h1>
+    <div id="grid">
+        @grid.GetHtml(
+      tableStyle: "table table-hover",
+     columns: grid.Columns(
+         grid.Column("ComputerName", canSort: true),
+         grid.Column("OsVersion", "System"),
+         grid.Column("UserName", "User name"),
+         grid.Column("Is64", "OS version"),
+         grid.Column("TickCount", "Startup time"),
+         grid.Column("UserDomain", "Domain name"),
+         grid.Column("CpuName", "Procesor"),
+         grid.Column("GpuName", "Graphics"),
+         grid.Column("RAMsize", "RAM"),
+         grid.Column("Mbname", "Motherboard"),
+         grid.Column("HDDName", "Hard disk"),
+         grid.Column(header: "Operacje", format:
+        @<text>
+            @Html.ActionLink("Details", "Details", new { Id = item.ViewModelId }) |
+            @Html.ActionLink("Programs", "Programs", new { Id = item.ViewModelId }) |
+            @Html.ActionLink("Processes", "Processes", new { Id = item.ViewModelId })
+
+        </text>
+
+
+            )))
+    </div>
+</body>
+</html> 
